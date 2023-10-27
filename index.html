@@ -85,6 +85,16 @@
         // Mouse coordinates
         L.control.mousePosition().addTo(map);
 
+        //Google Maps
+        map.createPane('pane_googleMaps');
+        map.getPane('pane_googleMaps').style.zIndex = 401;
+        var googleMaps = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+            maxZoom: 28,
+            subdomains:['mt0','mt1','mt2','mt3']
+        });
+        map.addLayer(googleMaps)
+
+
 
         
         map.createPane('pane_OFC2021GSD20cmdiproprietdiRegioneToscanaEsecuzionevoloIRSsrlCoperturadelterritoriocompletaImmaginia8bitdicolore_0');
@@ -102,6 +112,7 @@
             attribution: '',
         });
         map.addLayer(layer_OFC2021GSD20cmdiproprietdiRegioneToscanaEsecuzionevoloIRSsrlCoperturadelterritoriocompletaImmaginia8bitdicolore_0);
+
         function pop_CentroD_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -189,7 +200,7 @@
             }
         }
         map.createPane('pane_CentroD_1');
-        map.getPane('pane_CentroD_1').style.zIndex = 401;
+        map.getPane('pane_CentroD_1').style.zIndex = 402;
         map.getPane('pane_CentroD_1').style['mix-blend-mode'] = 'normal';
         var layer_CentroD_1 = new L.geoJson(json_CentroD_1, {
             attribution: '',
@@ -219,7 +230,9 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/CentroD_1.png" /> Centro D': layer_CentroD_1,"OFC 2021 (GSD 20cm) Toscana": layer_OFC2021GSD20cmdiproprietdiRegioneToscanaEsecuzionevoloIRSsrlCoperturadelterritoriocompletaImmaginia8bitdicolore_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/CentroD_1.png" /> Centro D': layer_CentroD_1,
+        "OFC 2021 (GSD 20cm) Toscana": layer_OFC2021GSD20cmdiproprietdiRegioneToscanaEsecuzionevoloIRSsrlCoperturadelterritoriocompletaImmaginia8bitdicolore_0,
+        'Google Maps': googleMaps},{collapsed:false}).addTo(map);
         setBounds();
         var i = 0;
         layer_CentroD_1.eachLayer(function(layer) {
